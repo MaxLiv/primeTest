@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>MedHelper2.0</title>
+</h:head>
+<h:body>
+    <p:layout >
+        <p:layoutUnit position="west">
+            <p:outputLabel value="Меню"/>
+            <h:form>
+                <p:commandButton value="Добавить" action="addSupplies"/>
+            </h:form>
+        </p:layoutUnit>
+        <p:layoutUnit position="center">
+            <p:outputLabel value="Медикаменты"/>
+            <p:dataTable id="patientDT" var="drug" value="#{suppliesBean.supplies}">
+                <f:facet name="header">
+                    Список пациентов
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{drug.id}" />
+                </p:column>
+                <p:column headerText="Название">
+                    <h:outputText value="#{drug.name}" />
+                </p:column>
+                <p:column headerText="Описание">
+                    <h:outputText value="#{drug.description}" />
+                </p:column>
+                <p:column headerText="Количество">
+                    <h:outputText value="#{drug.count}" />
+                </p:column>
+            </p:dataTable>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>
