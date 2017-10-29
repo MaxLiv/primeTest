@@ -1,5 +1,7 @@
 package PageTest;
 
+import entities.Doctor;
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -45,4 +47,6 @@ public class SelectManyView {
     public void setSelectedThemes(List<Theme> selectedThemes) {
         this.selectedThemes = selectedThemes;
     }
+
+
 }

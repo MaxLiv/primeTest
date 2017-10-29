@@ -98,11 +98,27 @@
                         <h:outputText value=""/>
 
                         <h:outputText value="Лекарства"/>
-                        <p:inputText/>
+                        <p:inputText value="#{themeService.department}"/>
                         <h:outputText value=""/>
 
-                        <h:outputText value="Врач"/>
-                        <p:inputText/>
+                        <h:outputText value="Отделения" for="departments"/>
+                        <p:selectOneMenu id="departments" value="#{themeService.department}" onchange="#{themeService.doctors}">
+                            <f:selectItem itemLabel="Выберите отделение" itemValue="" />
+                            <f:selectItems value="#{themeService.departments}" />
+                        </p:selectOneMenu>
+                        <!--<p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />-->
+
+
+                        <!--<p:selectCheckboxMenu id="menu" value="#{themeService.selectedDepartments}" label="Отделения"-->
+                                              <!--filter="true" filterMatchMode="startsWith" panelStyle="width:400px">-->
+                            <!--<f:selectItems value="#{themeService.departments}" />-->
+                        <!--</p:selectCheckboxMenu>-->
+
+                        <h:outputText value="Врач" for = "doctor"/>
+                        <p:selectOneMenu id="doctor" value="#{themeService.doctor}">
+                            <f:selectItem itemLabel="Выберите врача" itemValue="" />
+                            <f:selectItems value="#{themeService.doctors}" />
+                        </p:selectOneMenu>
                         <h:outputText value=""/>
                     </h:panelGrid>
 

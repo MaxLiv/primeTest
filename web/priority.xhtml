@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:g="http://java.sun.com/jsf/html">
+<h:head><title>MedHelper2.0</title></h:head>
+<h:body>
+    <h:form>
+        <p:dataTable var="project" value="#{themeService.projects}">
+
+
+            <p:column headerText="Название">
+                <h:outputText value="#{project.name}"/>
+            </p:column>
+
+            <p:column headerText="Описание">
+                <h:outputText value="#{project.description}"/>
+            </p:column>
+
+            <p:column headerText="Средняя оценка">
+                <h:outputText value="0"/>
+            </p:column>
+
+            <p:column headerText="Оценка">
+                <p:commandButton oncomplete="PF('documentDialog').show()" title="Оценить">
+                    <f:setPropertyActionListener value="#{project}" target="#{addView.project}"/>
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+        <p:dialog id="dialog" header="Оценить проект #{addView.project.name}" showEffect="fade"
+                  widgetVar="documentDialog" modal="true"
+                  resizable="false">
+            <p:outputPanel id="documentPanel">
+                <p:panelGrid columns="2" columnClasses="label,value">
+
+
+                    <h:outputLabel for="name" value="Название: "/>
+                    <h:outputText id="name" value="#{addView.project.name}" style="font-weight:bold"/>
+
+                    <h:outputLabel for="size" value="Описание: "/>
+                    <h:outputText id="size" value="#{addView.project.description}" style="font-weight:bold"/>
+
+
+                    <p:selectOneMenu>
+                        <f:selectItem itemLabel="Кто вы?" itemValue=""/>
+                        <f:selectItem itemLabel="Врач" itemValue="Врач"/>
+                        <f:selectItem itemLabel="Пациент" itemValue="Пацент"/>
+                        <f:selectItem itemLabel="Глав. врач" itemValue="Главный"/>
+                    </p:selectOneMenu>
+
+
+                    <p:selectOneMenu>
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+                        <f:selectItem itemLabel="5" itemValue="5"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </p:outputPanel>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>

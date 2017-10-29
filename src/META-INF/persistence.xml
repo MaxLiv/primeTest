@@ -3,5 +3,7 @@
 
     <persistence-unit name="NewPersistenceUnit">
         <class>entities.Drug</class>
+        <class>entities.Doctor</class>
+        <class>entities.Project</class>
     </persistence-unit>
 </persistence>
