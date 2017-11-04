@@ -3,11 +3,11 @@ package PageTest;
 import entities.Doctor;
 import entities.Project;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean(name = "themeService", eager = true)
 @ApplicationScoped
@@ -67,14 +67,14 @@ public class ThemeService {
     }
 
     public void setDoctors(List<Doctor> doctors) {
-        List<Doctor> temp = new ArrayList<>();
-        if (department != null) {
-            for (Doctor doctor : doctors) {
-                if (doctor.getDepartment().equals(department))
-                    temp.add(doctor);
-            }
-            this.doctors = temp;
-        }else
+        //List<Doctor> temp = new ArrayList<>();
+        //if (department != null) {
+        //    for (Doctor doctor : doctors) {
+        //        if (doctor.getDepartment().equals(department))
+        //            temp.add(doctor);
+        //    }
+        //    this.doctors = temp;
+        //}else
             this.doctors = doctors;
     }
 
@@ -86,19 +86,24 @@ public class ThemeService {
                     temp.add(doctor);
             }
             doctors = temp;
+
         }
     }
 
     public List<Doctor> getDoctors() {
-//        List<Doctor> temp = new ArrayList<>();
-//        if (department != null) {
-//            for (Doctor doctor : doctors) {
-//                if (doctor.getDepartment().equals(department))
-//                    temp.add(doctor);
-//            }
-//            return temp;
-//        } else
+        List<Doctor> temp = new ArrayList<>();
+        if (department != null) {
+            for (Doctor doctor : doctors) {
+                if (doctor.getDepartment().equals(department))
+                    temp.add(doctor);
+            }
+            return temp;
+        } else
             return doctors;
+    }
+
+    public void change(){
+
     }
 
     public List<String> getDepartments() {

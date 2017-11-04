@@ -8,9 +8,30 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:g="http://java.sun.com/jsf/html">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
+    <h:form id="test">
+
+        <h:outputText value="Лекарства"/>
+        <p:inputText id="text" value="#{themeService.department}"/>
+        <h:outputText value=""/>
+
+        <h:outputText value="Отделения" for="departments"/>
+        <p:selectOneMenu id="departments" value="#{themeService.department}" >
+            <f:selectItem itemLabel="Выберите отделение" itemValue="" />
+            <f:selectItems value="#{themeService.departments}" var="#{themeService.department}"/>
+            <p:ajax update=":test:text,:test:doctors"/>
+        </p:selectOneMenu>
+
+        <h:outputText value="Врач" for = "doctors"/>
+        <p:selectOneMenu id="doctors" value="#{themeService.doctor}">
+            <f:selectItem itemLabel="Выберите врача" itemValue="" />
+            <f:selectItems value="#{themeService.doctors}" />
+        </p:selectOneMenu>
+        <h:outputText value=""/>
+        <p:commandButton value="Update" action="#{themeService.filterDoctors}" update=":test:text,:test:doctors"/>
+
+    </h:form>
+
     <h:form>
-
-
 
     </h:form>
 </h:body>

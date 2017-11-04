@@ -8,7 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
-    <h:form>
+    <h:form id="form">
 
         <p:growl id="growl" sticky="true" showDetail="true"/>
 
@@ -91,20 +91,20 @@
             </p:tab>
 
             <p:tab id="cure" title="Лечение">
-                <p:panel header="Назначение лечения">
+                <p:panel id="panel" header="Назначение лечения">
                     <h:panelGrid columns="3">
                         <h:outputText value="Процедуры"/>
                         <p:inputText/>
                         <h:outputText value=""/>
 
                         <h:outputText value="Лекарства"/>
-                        <p:inputText value="#{themeService.department}"/>
+                        <p:inputText id="text" value="#{themeService.department}"/>
                         <h:outputText value=""/>
 
                         <h:outputText value="Отделения" for="departments"/>
-                        <p:selectOneMenu id="departments" value="#{themeService.department}" onchange="#{themeService.doctors}">
+                        <p:selectOneMenu id="departments" value="#{themeService.department}" update=":form:text">
                             <f:selectItem itemLabel="Выберите отделение" itemValue="" />
-                            <f:selectItems value="#{themeService.departments}" />
+                            <f:selectItems value="#{themeService.departments}" var="#{themeService.department}"/>
                         </p:selectOneMenu>
                         <!--<p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />-->
 
