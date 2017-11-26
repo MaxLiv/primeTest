@@ -8,8 +8,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:g="http://java.sun.com/jsf/html">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
-    <h:form>
-        <p:dataTable var="project" value="#{themeService.projects}">
+    <h:form id="pform">
+        <p:dataTable var="project" value="#{projectBean.projects}">
 
 
             <p:column headerText="Название">
@@ -26,13 +26,15 @@
 
             <p:column headerText="Оценка">
                 <p:commandButton oncomplete="PF('documentDialog').show()" title="Оценить">
-                    <f:setPropertyActionListener value="#{project}" target="#{addView.project}"/>
+                    <f:setPropertyActionListener value="#{project}" target="#{projectBean.selectedProject}"/>
                 </p:commandButton>
             </p:column>
-
         </p:dataTable>
 
-        <p:dialog id="dialog" header="Оценить проект #{addView.project.name}" showEffect="fade"
+        <p:inputText id="text" value="#{projectBean.selectedProject}" update=":pform:dialog"/>
+
+
+        <p:dialog id="dialog" header="Оценить проект #{projectBean.selectedProject.name}" showEffect="fade"
                   widgetVar="documentDialog" modal="true"
                   resizable="false">
             <p:outputPanel id="documentPanel">
@@ -40,10 +42,10 @@
 
 
                     <h:outputLabel for="name" value="Название: "/>
-                    <h:outputText id="name" value="#{addView.project.name}" style="font-weight:bold"/>
+                    <h:outputText id="name" value="#{projectBean.selectedProject.name}" style="font-weight:bold"/>
 
                     <h:outputLabel for="size" value="Описание: "/>
-                    <h:outputText id="size" value="#{addView.project.description}" style="font-weight:bold"/>
+                    <h:outputText id="size" value="#{projectBean.selectedProject.description}" style="font-weight:bold"/>
 
 
                     <p:selectOneMenu>

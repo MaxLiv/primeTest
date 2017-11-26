@@ -8,29 +8,30 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
-    <h:form id="form">
+    <h:form id="pform">
 
         <p:growl id="growl" sticky="true" showDetail="true"/>
 
-        <p:wizard >
+        <p:wizard>
             <p:tab id="pation" title="Пациент">
                 <p:panel header="Персональные данные">
-                    <p:messages />
+                    <p:messages/>
                     <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Имя:" />
+                        <h:outputText value="Имя:"/>
                         <p:inputText value="#{patientBean.patient.name}" label="Firstname"/>
 
-                        <h:outputText value="Фамилия:" />
+                        <h:outputText value="Фамилия:"/>
                         <p:inputText value="#{patientBean.patient.surname}" label="Lastname"/>
 
                         <h:outputLabel for="patronymic" value="Отчество:"/>
                         <p:inputText id="patronymic" value="#{patientBean.patient.patronymic}"/>
 
-                        <h:outputText for="age" value="Возраст: " />
-                        <p:inputText id="age" value="#{patientBean.patient.age}" />
+                        <h:outputText for="age" value="Возраст: "/>
+                        <p:inputText id="age" value="#{patientBean.patient.age}"/>
 
                         <h:outputLabel for="birhday" value="Дата рождения:"/>
-                        <p:calendar id="birhday" value="#{bean.patient.birthday}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+                        <p:calendar id="birhday" value="#{bean.patient.birthday}" locale="de" navigator="true"
+                                    pattern="yyyy-MMM-dd"/>
 
                         <h:outputLabel for="height" value="Рост:"/>
                         <p:inputText id="height" value="#{patientBean.patient.height}"/>
@@ -50,15 +51,15 @@
 
             <p:tab id="contact" title="Контакты">
                 <p:panel header="Контактные данные">
-                    <p:messages />
+                    <p:messages/>
                     <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Email: *" />
+                        <h:outputText value="Email: *"/>
                         <p:inputText value="#{userWizard.user.email}" label="Email"/>
 
-                        <h:outputText value="Phone: " />
+                        <h:outputText value="Phone: "/>
                         <p:inputText value="#{userWizard.user.phone}"/>
 
-                        <h:outputText value="Additional Info: " />
+                        <h:outputText value="Additional Info: "/>
                         <p:inputText value="#{userWizard.user.info}"/>
                     </h:panelGrid>
                 </p:panel>
@@ -66,16 +67,17 @@
 
             <p:tab id="disease" title="Болезнь">
                 <p:panel header="Информация о болезни">
-                    <p:messages />
+                    <p:messages/>
                     <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Описание: " />
-                        <p:inputTextarea rows="6" cols="33" />
+                        <h:outputText value="Описание: "/>
+                        <p:inputTextarea rows="6" cols="33"/>
 
-                        <h:outputText value="Анализы: " />
+                        <h:outputText value="Анализы: "/>
                         <h:form>
                             <p:selectManyMenu id="advanced" value="#{selectManyView.selectedThemes}" style="width: auto"
                                               var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
-                                <f:selectItems value="#{selectManyView.themes}" var="theme" itemLabel="#{theme.displayName}"
+                                <f:selectItems value="#{selectManyView.themes}" var="theme"
+                                               itemLabel="#{theme.displayName}"
                                                itemValue="#{theme}"/>
                                 <p:column>
                                     <h:outputText styleClass="ui-theme ui-theme-#{t.name}"/>
@@ -92,82 +94,30 @@
 
             <p:tab id="cure" title="Лечение">
                 <p:panel id="panel" header="Назначение лечения">
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="2">
                         <h:outputText value="Процедуры"/>
                         <p:inputText/>
-                        <h:outputText value=""/>
 
                         <h:outputText value="Лекарства"/>
                         <p:inputText id="text" value="#{themeService.department}"/>
-                        <h:outputText value=""/>
 
                         <h:outputText value="Отделения" for="departments"/>
-                        <p:selectOneMenu id="departments" value="#{themeService.department}" update=":form:text">
+                        <p:selectOneMenu id="departments" value="#{themeService.department}" >
                             <f:selectItem itemLabel="Выберите отделение" itemValue="" />
                             <f:selectItems value="#{themeService.departments}" var="#{themeService.department}"/>
+                            <p:ajax update=":pform:doctors"/>
                         </p:selectOneMenu>
-                        <!--<p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />-->
 
 
-                        <!--<p:selectCheckboxMenu id="menu" value="#{themeService.selectedDepartments}" label="Отделения"-->
-                                              <!--filter="true" filterMatchMode="startsWith" panelStyle="width:400px">-->
-                            <!--<f:selectItems value="#{themeService.departments}" />-->
-                        <!--</p:selectCheckboxMenu>-->
-
-                        <h:outputText value="Врач" for = "doctor"/>
-                        <p:selectOneMenu id="doctor" value="#{themeService.doctor}">
-                            <f:selectItem itemLabel="Выберите врача" itemValue="" />
-                            <f:selectItems value="#{themeService.doctors}" />
+                        <h:outputText value="Врач" for="doctors"/>
+                        <p:selectOneMenu id="doctors" value="#{themeService.doctor}">
+                            <f:selectItem itemLabel="Выберите врача" itemValue=""/>
+                            <f:selectItems value="#{themeService.doctors}"/>
                         </p:selectOneMenu>
-                        <h:outputText value=""/>
                     </h:panelGrid>
 
                 </p:panel>
             </p:tab>
-
-            <!--<p:tab id="confirm" title="Confirmation">-->
-                <!--<p:panel header="Confirmation">-->
-                    <!--<h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">-->
-                        <!--<h:panelGrid columns="2" columnClasses="label, value">-->
-                            <!--<h:outputText value="Firstname: " />-->
-                            <!--<h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText value="Lastname: " />-->
-                            <!--<h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText value="Age: " />-->
-                            <!--<h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>-->
-                        <!--</h:panelGrid>-->
-
-                        <!--<h:panelGrid columns="2" columnClasses="label, value">-->
-                            <!--<h:outputText value="Street: " />-->
-                            <!--<h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText value="Postal: " />-->
-                            <!--<h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText value="City: " />-->
-                            <!--<h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>-->
-                        <!--</h:panelGrid>-->
-
-                        <!--<h:panelGrid columns="2" columnClasses="label, value">-->
-                            <!--<h:outputText value="Email: " />-->
-                            <!--<h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText value="Phone " />-->
-                            <!--<h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText value="Info: " />-->
-                            <!--<h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>-->
-
-                            <!--<h:outputText />-->
-                            <!--<h:outputText />-->
-                        <!--</h:panelGrid>-->
-                    <!--</h:panelGrid>-->
-
-                    <!--<p:commandButton value="Submit" actionListener="#{userWizard.save}" update="growl" process="@this"/>-->
-                <!--</p:panel>-->
-            <!--</p:tab>-->
         </p:wizard>
 
     </h:form>
