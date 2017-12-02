@@ -10,33 +10,53 @@
     <title>MedHelper2.0</title>
 </h:head>
 <h:body>
-    <p:layout >
-        <p:layoutUnit position="west">
-            <p:outputLabel value="Меню"/>
-            <h:form>
-                <p:commandButton value="Добавить" action="addSupplies"/>
-            </h:form>
-        </p:layoutUnit>
-        <p:layoutUnit position="center">
-            <p:outputLabel value="Медикаменты"/>
-            <p:dataTable id="patientDT" var="drug" value="#{suppliesBean.drugs}">
-                <f:facet name="header">
-                    Список пациентов
-                </f:facet>
-                <p:column headerText="Id">
-                    <h:outputText value="#{drug.id}" />
-                </p:column>
-                <p:column headerText="Название">
-                    <h:outputText value="#{drug.name}" />
-                </p:column>
-                <p:column headerText="Описание">
-                    <h:outputText value="#{drug.description}" />
-                </p:column>
-                <p:column headerText="Количество">
-                    <h:outputText value="#{drug.count}" />
-                </p:column>
-            </p:dataTable>
-        </p:layoutUnit>
-    </p:layout>
+    <h:form id="sform">
+        <p:layout>
+            <p:layoutUnit position="west">
+                <p:outputLabel value="Меню"/>
+                <p:commandButton value="Добавить" oncomplete="PF('addDrugDialog').show()"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <p:outputLabel value="Медикаменты"/>
+                <p:dataTable id="patientDT" var="drug" value="#{suppliesBean.drugs}">
+                    <f:facet name="header">
+                        Список пациентов
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{drug.id}"/>
+                    </p:column>
+                    <p:column headerText="Название">
+                        <h:outputText value="#{drug.name}"/>
+                    </p:column>
+                    <p:column headerText="Описание">
+                        <h:outputText value="#{drug.description}"/>
+                    </p:column>
+                    <p:column headerText="Количество">
+                        <h:outputText value="#{drug.count}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:layoutUnit>
+        </p:layout>
+
+
+        <p:dialog id="dialog"   header="Добавить лекарство" showEffect="fade" widgetVar="addDrugDialog" modal="true"
+                  resizable="false">
+            <p:outputPanel id="addDrugPanel">
+                <p:panelGrid columns="2" columnClasses="label,value">
+                    <p:outputLabel value="Название"/>
+                    <p:inputText value="${suppliesBean.drug.name}"/>
+
+                    <p:outputLabel value="Описание"/>
+                    <p:inputTextarea value="${suppliesBean.drug.name}"/>
+
+                    <p:outputLabel value="Количество"/>
+                    <p:spinner value="${suppliesBean.drug.count}"/>
+
+                </p:panelGrid>
+                <p:commandButton actionListener="${suppliesBean.addDrug()}" update=":sform:patientDT"
+                                 oncomplete="PF('addDrugDialog').hide()"  title="Голосовать"/>
+            </p:outputPanel>
+        </p:dialog>
+    </h:form>
 </h:body>
 </html>

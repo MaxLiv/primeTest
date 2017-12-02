@@ -3,6 +3,7 @@ package beans;
 import dao.SuppliesDAO;
 import entities.Drug;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -16,6 +17,8 @@ import java.util.List;
 @Named
 public class SuppliesBean implements Serializable {
 
+    private boolean getAll = true;
+
     @EJB
     private SuppliesDAO suppliesDAO;
 
@@ -23,14 +26,10 @@ public class SuppliesBean implements Serializable {
 
     private Drug drug;
 
+
     public List<Drug> getDrugs() {
-//        List<Drug> drugs = new ArrayList<>();
-//        drugs.add(new Drug(1, "Фармадол", 10, "От головы"));
-//        drugs.add(new Drug(2, "Активированный уголь", 8, "От отравления"));
-//        drugs.add(new Drug(3, "Фармадол", 10, "От головы"));
-//        drugs.add(new Drug(4, "Фармадол", 10, "От головы"));
-        this.drugs = suppliesDAO.drugs();
-        return this.drugs;
+        if (getAll) return suppliesDAO.drugs();
+        return drugs;
     }
 
     public void setDrugs(List<Drug> drugs) {
@@ -44,4 +43,10 @@ public class SuppliesBean implements Serializable {
     public void setDrug(Drug drug) {
         this.drug = drug;
     }
+
+    public void addDrug() {
+        suppliesDAO.addDrug(drug);
+    }
+
+
 }

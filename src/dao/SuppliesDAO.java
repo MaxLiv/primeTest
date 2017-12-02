@@ -18,4 +18,8 @@ public class SuppliesDAO {
         Query query = manager.createQuery("SELECT d FROM Drug d");
         return query.getResultList();
     }
+
+    public void addDrug(Drug drug){
+        manager.persist(drug);
+    }
 }

@@ -8,8 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Drug {
 
-    public Drug(int id, String name, int count, String description) {
-        this.id = id;
+    public Drug(String name, int count, String description) {
         this.name = name;
         this.count = count;
         this.description = description;
