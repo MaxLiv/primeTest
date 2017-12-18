@@ -32,7 +32,8 @@
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2.172" level="application_server_libraries" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2.172 - JSF" level="application_server_libraries" />
     <orderEntry type="library" name="PrimeFaces-6.1" level="project" />
-    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
-    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2.172 - EJB" level="application_server_libraries" />
+    <orderEntry type="library" name="JPA 2.0-JPA 2.0" level="project" />
+    <orderEntry type="library" name="org.slf4j:slf4j-api:1.7.22" level="project" />
   </component>
 </module>

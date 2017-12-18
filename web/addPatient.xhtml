@@ -30,8 +30,8 @@
                         <p:inputText id="age" value="#{patientBean.patient.age}"/>
 
                         <h:outputLabel for="birhday" value="Дата рождения:"/>
-                        <p:calendar id="birhday" value="#{bean.patient.birthday}" locale="de" navigator="true"
-                                    pattern="yyyy-MMM-dd"/>
+                        <p:calendar id="birhday" value="#{patientBean.patient.birthday}" locale="de" navigator="true"
+                                   />
 
                         <h:outputLabel for="height" value="Рост:"/>
                         <p:inputText id="height" value="#{patientBean.patient.height}"/>
@@ -74,16 +74,16 @@
 
                         <h:outputText value="Анализы: "/>
                         <h:form>
-                            <p:selectManyMenu id="advanced" value="#{selectManyView.selectedThemes}" style="width: auto"
+                            <p:selectManyMenu id="advanced" value="#{patientBean.analyzes}" style="width: auto"
                                               var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
-                                <f:selectItems value="#{selectManyView.themes}" var="theme"
-                                               itemLabel="#{theme.displayName}"
-                                               itemValue="#{theme}"/>
+                                <f:selectItems value="#{patientBean.analyzes}" var="analizes"
+                                               itemLabel="#{analizes.name}"
+                                               itemValue="#{analizes}"/>
                                 <p:column>
                                     <h:outputText styleClass="ui-theme ui-theme-#{t.name}"/>
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="#{t.displayName}"/>
+                                    <h:outputText value="#{t.name}"/>
                                 </p:column>
                             </p:selectManyMenu>
                         </h:form>
@@ -99,22 +99,22 @@
                         <p:inputText/>
 
                         <h:outputText value="Лекарства"/>
-                        <p:inputText id="text" value="#{themeService.department}"/>
+                        <p:inputText id="text" value="#{departmentBean.department}"/>
 
                         <h:outputText value="Отделения" for="departments"/>
-                        <p:selectOneMenu id="departments" value="#{themeService.department}" >
+                        <p:selectOneMenu id="departments" value="#{departmentBean.department}" >
                             <f:selectItem itemLabel="Выберите отделение" itemValue="" />
-                            <f:selectItems value="#{themeService.departments}" var="#{themeService.department}"/>
+                            <f:selectItems value="#{departmentBean.departments}" var="#{departmentBean.department}"/>
                             <p:ajax update=":pform:doctors"/>
                         </p:selectOneMenu>
 
                         <h:outputText value="Врач" for="doctors"/>
-                        <p:selectOneMenu id="doctors" value="#{themeService.doctor}">
+                        <p:selectOneMenu id="doctors" value="#{departmentBean.doctor}">
                             <f:selectItem itemLabel="Выберите врача" itemValue=""/>
-                            <f:selectItems value="#{themeService.doctors}"/>
+                            <f:selectItems value="#{departmentBean.doctors}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
-
+                    <p:commandButton value="Сохранить" action="${patientBean.addPatient()}"/>
                 </p:panel>
             </p:tab>
         </p:wizard>

@@ -2,17 +2,15 @@ package entities;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 public class Patient{
-    @GeneratedValue
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     public Patient(int id, String name, String surname, int age) {
@@ -142,5 +140,26 @@ public class Patient{
 
     public void setArriveday(Date arriveday) {
         this.arriveday = arriveday;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                '}';
+    }
+
+    @ManyToOne(optional = false)
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

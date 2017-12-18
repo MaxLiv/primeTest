@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Drug {
@@ -20,8 +17,9 @@ public class Drug {
     }
 
 
-    @GeneratedValue
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

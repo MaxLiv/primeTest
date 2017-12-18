@@ -8,82 +8,48 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:g="http://java.sun.com/jsf/html">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
-    <h:form id="form">
-        <p:dataTable id="projects" value="#{projectBean.projects}" var="project">
-            <f:facet name="header">
-                Document Viewer
-            </f:facet>
-            <p:column headerText="Название">
-                <h:outputText value="#{project.name}"/>
-            </p:column>
-            <p:column headerText="Описание">
-                <h:outputText value="#{project.description}"/>
-            </p:column>
-            <p:column headerText="Оценка">
-                <h:outputText value="#{project.price}"/>
-            </p:column>
-            <p:column style="width:24px">
-                <p:commandButton update=":form:documentPanel" oncomplete="PF('documentDialog').show()"
-                                 title="Голосовать">
-                    <f:setPropertyActionListener value="#{project}" target="#{projectBean.selectedProject}"/>
-                </p:commandButton>
-            </p:column>
-        </p:dataTable>
+    <h:form id="pform">
+        <h:panelGrid columns="2" columnClasses="label, value">
+            <h:outputText value="Имя:"/>
+            <p:inputText value="#{patientBean.patient.name}" label="Firstname"/>
 
-        <p:inputText id="text" value="${vote.job}"/>
-        <p:inputText id="number" value="${projectBean.vote.price}"/>
+            <h:outputText value="Фамилия:"/>
+            <p:inputText value="#{patientBean.patient.surname}" label="Lastname"/>
 
-        <p:selectOneMenu value="#{vote.job}">
-            <f:selectItem itemLabel="Кто вы?" itemValue=""/>
-            <f:selectItem itemLabel="Врач" itemValue="Врач"/>
-            <f:selectItem itemLabel="Пациент" itemValue="Пацент"/>
-            <f:selectItem itemLabel="Глав. врач" itemValue="Главный"/>
-        </p:selectOneMenu>
+            <h:outputLabel for="patronymic" value="Отчество:"/>
+            <p:inputText id="patronymic" value="#{patientBean.patient.patronymic}"/>
 
-        <p:selectOneMenu converter="javax.faces.Integer" value="${vote.price}">
-            <f:selectItem itemLabel="1" itemValue="1"/>
-            <f:selectItem itemLabel="2" itemValue="2"/>
-            <f:selectItem itemLabel="3" itemValue="3"/>
-            <f:selectItem itemLabel="4" itemValue="4"/>
-            <f:selectItem itemLabel="5" itemValue="5"/>
-        </p:selectOneMenu>
+            <h:outputText for="age" value="Возраст: "/>
+            <p:inputText id="age" value="#{patientBean.patient.age}"/>
 
-        <p:commandButton value="Update" update=":form:text,:form:number"/>
+            <h:outputLabel for="birhday" value="Дата рождения:"/>
+            <p:calendar id="birhday" value="#{patientBean.patient.birthday}" locale="de" navigator="true" disabled="true"/>
 
-        <p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true"
-                  resizable="false">
-            <p:outputPanel id="documentPanel">
-                <p:panelGrid columns="2" columnClasses="label,value"
-                             rendered="#{not empty projectBean.selectedProject}">
-                    <h:outputLabel for="name" value="Name: "/>
-                    <h:outputText id="name" value="#{projectBean.selectedProject.name}" style="font-weight:bold"/>
+            <h:outputLabel for="height" value="Рост:"/>
+            <p:inputText id="height" value="#{patientBean.patient.height}"/>
 
-                    <h:outputLabel for="description" value="Size: "/>
-                    <h:outputText id="description" value="#{projectBean.selectedProject.description}"
-                                  style="font-weight:bold"/>
+            <h:outputLabel for="weight" value="Вес:"/>
+            <p:inputText id="weight" value="#{patientBean.patient.weight}"/>
 
-                    <h:outputLabel for="price" value="Type "/>
-                    <h:outputText id="price" value="#{projectBean.selectedProject.price}" style="font-weight:bold"/>
+            <h:outputLabel for="adress" value="Адресс:"/>
+            <p:inputText id="adress" value="#{patientBean.patient.adress}"/>
 
-                    <p:selectOneMenu>
-                        <f:selectItem itemLabel="Кто вы?" itemValue=""/>
-                        <f:selectItem itemLabel="Врач" itemValue="Врач"/>
-                        <f:selectItem itemLabel="Пациент" itemValue="Пацент"/>
-                        <f:selectItem itemLabel="Глав. врач" itemValue="Главный"/>
-                    </p:selectOneMenu>
+            <h:outputText value="Отделения" for="departments"/>
+            <p:selectOneMenu id="departments" value="#{departmentBean.department}" >
+                <f:selectItem itemLabel="Выберите отделение" itemValue="" />
+                <f:selectItems value="#{departmentBean.departments}" var="#{departmentBean.department}"/>
+                <p:ajax update=":pform:doctors"/>
+            </p:selectOneMenu>
 
-                    <p:selectOneMenu converter="javax.faces.Integer" value="${projectBean.vote.price}">
-                        <f:selectItem itemLabel="1" itemValue="1"/>
-                        <f:selectItem itemLabel="2" itemValue="2"/>
-                        <f:selectItem itemLabel="3" itemValue="3"/>
-                        <f:selectItem itemLabel="4" itemValue="4"/>
-                        <f:selectItem itemLabel="5" itemValue="5"/>
-                    </p:selectOneMenu>
-                </p:panelGrid>
-                <p:commandButton update=":form:text,:form:number, :form:projects" actionListener="${projectBean.oneVote()}"
-                                 oncomplete="PF('documentDialog').hide()" title="Голосовать" />
-            </p:outputPanel>
-        </p:dialog>
+            <h:outputText value="Врач" for="doctors"/>
+            <p:selectOneMenu id="doctors" value="#{patientBean.departmentBean.doctor.id}">
+                <f:selectItem itemLabel="Выберите врача" itemValue=""/>
+                <f:selectItems value="#{patientBean.departmentBean.doctors}" var="#{patientBean.departmentBean.doctor.name}"/>
+            </p:selectOneMenu>
+
+            <p:commandButton value="Сохранить" action="testpage1"/>
+
+        </h:panelGrid>
     </h:form>
 </h:body>
 </html>

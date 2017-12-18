@@ -1,8 +1,7 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Doctor {
@@ -19,6 +18,7 @@ public class Doctor {
     private int id;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -52,5 +52,16 @@ public class Doctor {
     @Override
     public String toString() {
         return name;
+    }
+
+    private Collection<Patient> patients;
+
+    @OneToMany(mappedBy = "doctor")
+    public Collection<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(Collection<Patient> patients) {
+        this.patients = patients;
     }
 }

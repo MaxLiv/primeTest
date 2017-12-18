@@ -39,22 +39,22 @@
         </p:layout>
 
 
-        <p:dialog id="dialog"   header="Добавить лекарство" showEffect="fade" widgetVar="addDrugDialog" modal="true"
+        <p:dialog id="dialog" header="Добавить лекарство" showEffect="fade" widgetVar="addDrugDialog" modal="true"
                   resizable="false">
             <p:outputPanel id="addDrugPanel">
                 <p:panelGrid columns="2" columnClasses="label,value">
                     <p:outputLabel value="Название"/>
-                    <p:inputText value="${suppliesBean.drug.name}"/>
+                    <p:inputText value="${suppliesBean.name}"/>
 
                     <p:outputLabel value="Описание"/>
-                    <p:inputTextarea value="${suppliesBean.drug.name}"/>
+                    <p:inputTextarea value="${suppliesBean.description}"/>
 
                     <p:outputLabel value="Количество"/>
-                    <p:spinner value="${suppliesBean.drug.count}"/>
+                    <p:spinner value="${suppliesBean.count}"/>
 
                 </p:panelGrid>
-                <p:commandButton actionListener="${suppliesBean.addDrug()}" update=":sform:patientDT"
-                                 oncomplete="PF('addDrugDialog').hide()"  title="Голосовать"/>
+                <p:commandButton action="${suppliesBean.addDrug()}" update=":sform:patientDT"
+                                 oncomplete="PF('addDrugDialog').hide()" title="Сохранить"/>
             </p:outputPanel>
         </p:dialog>
     </h:form>

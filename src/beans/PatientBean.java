@@ -1,46 +1,62 @@
 package beans;
 
 
+import dao.PatientDAO;
+import dao.TreatmentDAO;
+import entities.Analyzes;
 import entities.Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.faces.application.FacesMessage;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-@ViewScoped
-@Named("bean")
+@SessionScoped
 public class PatientBean implements Serializable {
+
+    @EJB
+    PatientDAO patientDAO;
+
+    @EJB
+    TreatmentDAO treatmentDAO;
+
+    @ManagedProperty(value = "#{departmentBean}")
+    private DepartmentBean departmentBean;
+
+    private List<Analyzes> analyzes;
+    private List<Analyzes> selectedAnalyzes;
 
     private List<Patient> patients;
 
     private Patient patient = new Patient();
 
-    public List<Patient> getPatients() {
-        List<Patient> list = new ArrayList<>();
-        list.add(new Patient(1, "Ivan","Ivanov",20));
-        list.add(new Patient(2, "Semen","Semenov",25));
-        list.add(new Patient(3, "Ivan","Ivanov",20));
-        list.add(new Patient(4, "Ivan","Ivanov",20));
-        patients = list;
-        return patients;
+    public DepartmentBean getDepartmentBean() {
+        return departmentBean;
     }
 
-//    @PostConstruct
-//    public void init() {
-//        List<Patient> list = new ArrayList<>();
-//        list.add(new Patient(1, "Ivan","Ivanov",20));
-//        list.add(new Patient(2, "Semen","Semenov",25));
-//        list.add(new Patient(3, "Ivan","Ivanov",20));
-//        list.add(new Patient(4, "Ivan","Ivanov",20));
-//        patients = list;
-//    }
+    public void setDepartmentBean(DepartmentBean departmentBean) {
+        this.departmentBean = departmentBean;
+    }
+
+    public List<Analyzes> getAnalyzes() {
+        return treatmentDAO.analyzes();
+    }
+
+    public void setAnalyzes(List<Analyzes> analyzes) {
+        this.analyzes = analyzes;
+    }
+
+    public List<Patient> getPatients() {
+        return patientDAO.patients();
+    }
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
@@ -54,4 +70,8 @@ public class PatientBean implements Serializable {
         this.patient = patient;
     }
 
+    public void addPatient(){
+        patient.setDoctor(departmentBean.getDoctor());
+        patientDAO.addPatient(patient);
+    }
 }

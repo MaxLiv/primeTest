@@ -8,38 +8,76 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
-    <p:layout >
-        <p:layoutUnit position="west">
-            <p:outputLabel value="Меню"/>
-            <h:form>
-                <p:commandButton value="Добавить" action="addPatient"/>
-            </h:form>
-        </p:layoutUnit>
-        <p:layoutUnit position="center">
-            <p:outputLabel value="Пациенты"/>
-            <p:dataTable id="patientDT" var="patient" value="#{patientBean.patients}">
-                <f:facet name="header">
-                   Список пациентов
-                </f:facet>
-                <p:column headerText="Id">
-                    <h:outputText value="#{patient.id}" />
-                </p:column>
-                <p:column headerText="Имя">
-                    <h:outputText value="#{patient.name}" />
-                </p:column>
-                <p:column headerText="Фамилия">
-                    <h:outputText value="#{patient.surname}" />
-                </p:column>
-                <p:column headerText="Дата рождения">
-                    <h:outputText value="0" />
-                </p:column>
-                <!--<p:column style="width:32px;text-align: center">-->
-                    <!--<p:commandButton update=":form:carDetail" oncomplete="PF('carOP').show('#{component.clientId}')" title="Полная информация">-->
-                        <!--&lt;!&ndash;<f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />&ndash;&gt;-->
-                    <!--</p:commandButton>-->
-                <!--</p:column>-->
-            </p:dataTable>
-        </p:layoutUnit>
-    </p:layout>
+    <h:form id="pform">
+        <p:layout>
+            <p:layoutUnit position="west">
+                <p:outputLabel value="Меню"/>
+                <h:form>
+                    <p:commandButton value="Добавить" action="addPatient"/>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <p:outputLabel value="Пациенты"/>
+                <p:dataTable id="patientDT" var="patient" value="#{patientBean.patients}">
+                    <f:facet name="header">
+                        Список пациентов
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{patient.id}"/>
+                    </p:column>
+                    <p:column headerText="Имя">
+                        <h:outputText value="#{patient.name}"/>
+                    </p:column>
+                    <p:column headerText="Фамилия">
+                        <h:outputText value="#{patient.surname}"/>
+                    </p:column>
+                    <p:column headerText="Дата рождения">
+                        <p:calendar value="#{patient.birthday}" locale="de" navigator="true"
+                                    readonly="true"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton update=":pform:patientPanel" oncomplete="PF('patientDialog').show()"
+                                         title="Карточка">
+                            <f:setPropertyActionListener value="#{patient}" target="#{patientBean.patient}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </p:layoutUnit>
+        </p:layout>
+
+
+        <p:dialog id="dialog" header="Карточка пациента" showEffect="fade" widgetVar="patientDialog" modal="true"
+                  resizable="false">
+            <p:outputPanel id="patientPanel">
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:outputText value="Имя:"/>
+                    <p:inputText value="#{patientBean.patient.name}" label="Firstname"/>
+
+                    <h:outputText value="Фамилия:"/>
+                    <p:inputText value="#{patientBean.patient.surname}" label="Lastname"/>
+
+                    <h:outputLabel for="patronymic" value="Отчество:"/>
+                    <p:inputText id="patronymic" value="#{patientBean.patient.patronymic}"/>
+
+                    <h:outputText for="age" value="Возраст: "/>
+                    <p:inputText id="age" value="#{patientBean.patient.age}"/>
+
+                    <h:outputLabel for="birhday" value="Дата рождения:"/>
+                    <p:calendar id="birhday" value="#{patientBean.patient.birthday}" locale="de" navigator="true"/>
+
+                    <h:outputLabel for="height" value="Рост:"/>
+                    <p:inputText id="height" value="#{patientBean.patient.height}"/>
+
+                    <h:outputLabel for="weight" value="Вес:"/>
+                    <p:inputText id="weight" value="#{patientBean.patient.weight}"/>
+
+                    <h:outputLabel for="adress" value="Адресс:"/>
+                    <p:inputText id="adress" value="#{patientBean.patient.adress}"/>
+                </h:panelGrid>
+                <p:commandButton update=":pform:patientDT" oncomplete="PF('documentDialog').hide()" title="Закрыть"/>
+            </p:outputPanel>
+        </p:dialog>
+    </h:form>
 </h:body>
 </html>

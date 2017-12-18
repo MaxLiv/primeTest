@@ -1,11 +1,14 @@
 package beans;
 
+import dao.ProjectDAO;
+import entities.Project;
 import entities.Vote;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -13,6 +16,9 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class ProjectBean implements Serializable {
+
+    @EJB
+    ProjectDAO projectDAO;
 
     private List<Project> projects;
     private Project selectedProject;
@@ -23,17 +29,10 @@ public class ProjectBean implements Serializable {
     @PostConstruct
     public void init() {
         count = 0;
-        vote = new Vote();
-        List<Project> root = new ArrayList<>();
-        root.add(new Project("Поднять зп", "Увеличить зарплату", 0));
-        root.add(new Project("Оборудывание", "Купить новое оборудывание", 1));
-        root.add(new Project("Персонал", "Найм дополнительного персонала", 2));
-        root.add(new Project("Ремонт", "Ремонт в палатах", 3));
-        this.projects = root;
     }
 
     public List<Project> getProjects() {
-        return projects;
+        return projectDAO.projects();
     }
 
     public void setProjects(List<Project> projects) {
@@ -64,12 +63,4 @@ public class ProjectBean implements Serializable {
         this.vote = vote;
     }
 
-    public void oneVote() {
-        count++;
-        selectedProject.setPrice(calc());
-    }
-
-    private Integer calc() {
-        return (selectedProject.getPrice() + vote.getPrice());
-    }
 }

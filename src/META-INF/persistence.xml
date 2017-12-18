@@ -2,7 +2,10 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="NewPersistenceUnit">
-        <jta-data-source>jdbc/med</jta-data-source>mediation
+        <jta-data-source>jdbc/med</jta-data-source>
+        <class>entities.Department</class>
+        <class>entities.Analyzes</class>
+        <class>entities.Procedures</class>mediation
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
