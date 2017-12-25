@@ -70,8 +70,9 @@ public class PatientBean implements Serializable {
         this.patient = patient;
     }
 
-    public void addPatient(){
+    public String addPatient(){
         patient.setDoctor(departmentBean.getDoctor());
         patientDAO.addPatient(patient);
+        return "patients";
     }
 }

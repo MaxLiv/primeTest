@@ -48,14 +48,47 @@ public class Project {
         this.id = id;
     }
 
-    private double value;
+    private double valueBoss;
 
     @Basic
-    public double getValue() {
-        return value;
+    public double getValueBoss() {
+        return valueBoss;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setValueBoss(double valueBoss) {
+        this.valueBoss = valueBoss;
+    }
+
+    private double valueDoctor;
+
+    @Basic
+    public double getValueDoctor() {
+        return valueDoctor;
+    }
+
+    public void setValueDoctor(double valueDoctor) {
+        this.valueDoctor = valueDoctor;
+    }
+
+    private double valueNurse;
+
+    @Basic
+    public double getValueNurse() {
+        return valueNurse;
+    }
+
+    public void setValueNurse(double valueNurse) {
+        this.valueNurse = valueNurse;
+    }
+
+    private double valueAdmin;
+
+    @Basic
+    public double getValueAdmin() {
+        return valueAdmin;
+    }
+
+    public void setValueAdmin(double value) {
+        this.valueAdmin = value;
     }
 }

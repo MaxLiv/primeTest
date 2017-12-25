@@ -8,6 +8,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:g="http://java.sun.com/jsf/html">
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
+    <h:form id="pform">
+        <h:panelGrid columns="2">
+            <p:chart type="line" model="#{chartView.lineModel1}" style="height:300px;"/>
+            <p:commandButton value="Статистика"/>
 
+            <p:chart type="bar" model="#{chartView.barModel}" style="height:300px"/>
+
+        </h:panelGrid>
+    </h:form>
 </h:body>
 </html>

@@ -9,47 +9,7 @@
 <h:head><title>MedHelper2.0</title></h:head>
 <h:body>
     <h:form id="pform">
-        <h:panelGrid columns="2" columnClasses="label, value">
-            <h:outputText value="Имя:"/>
-            <p:inputText value="#{patientBean.patient.name}" label="Firstname"/>
-
-            <h:outputText value="Фамилия:"/>
-            <p:inputText value="#{patientBean.patient.surname}" label="Lastname"/>
-
-            <h:outputLabel for="patronymic" value="Отчество:"/>
-            <p:inputText id="patronymic" value="#{patientBean.patient.patronymic}"/>
-
-            <h:outputText for="age" value="Возраст: "/>
-            <p:inputText id="age" value="#{patientBean.patient.age}"/>
-
-            <h:outputLabel for="birhday" value="Дата рождения:"/>
-            <p:calendar id="birhday" value="#{patientBean.patient.birthday}" locale="de" navigator="true" disabled="true"/>
-
-            <h:outputLabel for="height" value="Рост:"/>
-            <p:inputText id="height" value="#{patientBean.patient.height}"/>
-
-            <h:outputLabel for="weight" value="Вес:"/>
-            <p:inputText id="weight" value="#{patientBean.patient.weight}"/>
-
-            <h:outputLabel for="adress" value="Адресс:"/>
-            <p:inputText id="adress" value="#{patientBean.patient.adress}"/>
-
-            <h:outputText value="Отделения" for="departments"/>
-            <p:selectOneMenu id="departments" value="#{departmentBean.department}" >
-                <f:selectItem itemLabel="Выберите отделение" itemValue="" />
-                <f:selectItems value="#{departmentBean.departments}" var="#{departmentBean.department}"/>
-                <p:ajax update=":pform:doctors"/>
-            </p:selectOneMenu>
-
-            <h:outputText value="Врач" for="doctors"/>
-            <p:selectOneMenu id="doctors" value="#{patientBean.departmentBean.doctor.id}">
-                <f:selectItem itemLabel="Выберите врача" itemValue=""/>
-                <f:selectItems value="#{patientBean.departmentBean.doctors}" var="#{patientBean.departmentBean.doctor.name}"/>
-            </p:selectOneMenu>
-
-            <p:commandButton value="Сохранить" action="testpage1"/>
-
-        </h:panelGrid>
+        <p:chart type="line" model="#{chartView.areaModel}" style="height:300px" />
     </h:form>
 </h:body>
 </html>

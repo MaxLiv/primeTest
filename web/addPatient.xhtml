@@ -99,7 +99,7 @@
                         <p:inputText/>
 
                         <h:outputText value="Лекарства"/>
-                        <p:inputText id="text" value="#{departmentBean.department}"/>
+                        <p:inputText id="text" value="#{departmentBean.doctors}"/>
 
                         <h:outputText value="Отделения" for="departments"/>
                         <p:selectOneMenu id="departments" value="#{departmentBean.department}" >
@@ -112,6 +112,7 @@
                         <p:selectOneMenu id="doctors" value="#{departmentBean.doctor}">
                             <f:selectItem itemLabel="Выберите врача" itemValue=""/>
                             <f:selectItems value="#{departmentBean.doctors}"/>
+                            <p:ajax update=":pform:text"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <p:commandButton value="Сохранить" action="${patientBean.addPatient()}"/>
